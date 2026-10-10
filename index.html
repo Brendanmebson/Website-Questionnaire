@@ -414,9 +414,8 @@ $('#sb').onclick=async()=>{
   if(ENDPOINT){try{await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)})}catch(e){alert('Could not send your responses. A copy will be downloaded instead.');download(data)}}
   else download(data);
   try{localStorage.removeItem('wdq');localStorage.removeItem('wdqs')}catch(e){}
-  f.innerHTML=`<div class="card top"><h2>Thank you</h2><p>${ENDPOINT?'Your responses and uploaded files were sent successfully.':'Your responses were submitted and downloaded as a JSON file, including any uploaded images and files.'}</p><div class="nav"><button class="b g" id="dl" type="button">Download again</button><button class="b" id="pr" type="button">Print a copy</button></div></div>`;
+  f.innerHTML=`<div class="card top"><h2>Thank you</h2><p>${ENDPOINT?'Your responses and uploaded files were sent successfully.':'Your responses were submitted and downloaded as a JSON file, including any uploaded images and files.'}</p></div>`;
   $('#nav').hidden=$('#ft').hidden=true;
-  $('#dl').onclick=()=>download(data);$('#pr').onclick=()=>window.print();
   window.scrollTo(0,0);
 };
 
