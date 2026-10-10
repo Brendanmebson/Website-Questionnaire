@@ -45,6 +45,10 @@ select{font:inherit;font-size:13px;max-width:55%;color:var(--t);background:var(-
 .cr{text-align:center;margin-top:28px;padding-top:16px;border-top:1px solid var(--l);font-size:13px;color:var(--m)}
 .cr p{margin:4px 0}
 .cr a{color:var(--p)}
+.ld{text-align:center;padding:36px 24px}
+.sp{width:40px;height:40px;margin:0 auto 14px;border:4px solid var(--l);border-top-color:var(--p);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.sp{animation-duration:2.4s}}
 @media print{.nav,.st select,.ft{display:none}}
 </style>
 </head>
@@ -409,14 +413,19 @@ function download(data){
   a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
   a.download='website-questionnaire-responses.json';a.click();
 }
+let busy=false;
 $('#sb').onclick=async()=>{
+  if(busy)return;busy=true;
   const data=build();
-  if(ENDPOINT){try{await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)})}catch(e){alert('Could not send your responses. A copy will be downloaded instead.');download(data)}}
+  $('#sb').disabled=true;$('#nav').hidden=$('#ft').hidden=true;
+  f.innerHTML=`<div class="card top ld"><div class="sp" role="status" aria-label="Submitting"></div><h2>Submitting your responses…</h2><p>Please keep this page open. Uploading files can take a little while.</p></div>`;
+  window.scrollTo(0,0);
+  let ok=true;
+  if(ENDPOINT){try{await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)})}catch(e){ok=false;download(data)}}
   else download(data);
   try{localStorage.removeItem('wdq');localStorage.removeItem('wdqs')}catch(e){}
-  f.innerHTML=`<div class="card top"><h2>Thank you</h2><p>${ENDPOINT?'Your responses and uploaded files were sent successfully.':'Your responses were submitted and downloaded as a JSON file, including any uploaded images and files.'}</p></div>`;
-  $('#nav').hidden=$('#ft').hidden=true;
-  window.scrollTo(0,0);
+  const msg=!ok?'We could not send your responses, so a copy was downloaded to your device. Please send that file to your developer.':ENDPOINT?'Your responses and uploaded files were sent successfully.':'Your responses were submitted and downloaded as a JSON file, including any uploaded images and files.';
+  f.innerHTML=`<div class="card top"><h2>Thank you</h2><p>${msg}</p></div>`;
 };
 
 show(cur);
