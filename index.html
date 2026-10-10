@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Website Questionnaire</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23673ab7'/%3E%3Crect x='8' y='6' width='16' height='20' rx='2' fill='%23fff'/%3E%3Crect x='11' y='10' width='10' height='2' rx='1' fill='%23673ab7'/%3E%3Crect x='11' y='15' width='10' height='2' rx='1' fill='%23673ab7'/%3E%3Crect x='11' y='20' width='6' height='2' rx='1' fill='%23673ab7'/%3E%3C/svg%3E">
+<style>
+:root{color-scheme:light;--p:#673ab7;--pt:#fff;--bg:#f0ebf8;--c:#fff;--t:#202124;--m:#5f6368;--l:#dadce0;--f:#f8f6fc}
+.ast{color:#d93025;margin-left:4px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:15px/1.5 "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px 12px 80px}
+.card{background:var(--c);border:1px solid var(--l);border-radius:8px;padding:20px 24px;margin-bottom:12px}
+.top{border-top:10px solid var(--p)}
+h1{font-size:28px;margin:0 0 8px;font-weight:400}
+h2{font-size:20px;margin:0 0 4px;font-weight:500}
+.card p{margin:4px 0;color:var(--m)}
+.hd{border-left:6px solid var(--p)}
+.ql{display:block;font-size:16px;margin-bottom:12px;font-weight:500}
+.op{display:flex;gap:10px;align-items:flex-start;padding:5px 0;cursor:pointer}
+.op input{margin-top:5px;accent-color:var(--p);width:16px;height:16px;flex:none}
+textarea,.dt,input[type=text],input[type=date]{width:100%;font:inherit;color:var(--t);background:transparent;border:0;border-bottom:1px solid var(--l);padding:6px 2px;outline:0;resize:vertical}
+textarea:focus,.dt:focus,input[type=date]:focus{border-bottom:2px solid var(--p)}
+.dt{margin-top:10px;font-size:14px}
+.dz{display:flex;flex-direction:column;align-items:center;gap:2px;border:2px dashed var(--l);border-radius:8px;padding:22px;cursor:pointer;background:var(--f);text-align:center}
+.dz:hover,.dz.on,.dz:focus-within{border-color:var(--p)}
+.dz span{color:var(--m);font-size:13px}
+.th{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.tb{position:relative;width:110px;font-size:12px;word-break:break-all;border:1px solid var(--l);border-radius:6px;padding:4px;background:var(--f)}
+.tb img{width:100%;height:80px;object-fit:cover;border-radius:4px;display:block}
+.tb i{display:grid;place-items:center;height:80px;font-style:normal;font-size:12px;color:var(--m)}
+.tb button{position:absolute;top:-8px;right:-8px;width:22px;height:22px;border-radius:50%;border:0;background:var(--p);color:var(--pt);cursor:pointer;line-height:1}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:16px}
+button.b{font:inherit;font-weight:500;padding:9px 22px;border-radius:4px;border:1px solid var(--p);background:var(--p);color:var(--pt);cursor:pointer}
+button.b.g{background:transparent;color:var(--p)}
+button.b:disabled{opacity:.35;cursor:default}
+button:focus-visible,select:focus-visible,.dz:focus-within{outline:2px solid var(--p);outline-offset:2px}
+.bar{height:6px;background:var(--l);border-radius:3px;overflow:hidden;margin:10px 0 4px}
+.bar div{height:100%;background:var(--p);transition:width .25s}
+.st{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px;color:var(--m)}
+select{font:inherit;font-size:13px;max-width:55%;color:var(--t);background:var(--c);border:1px solid var(--l);border-radius:4px;padding:4px}
+.ft{text-align:center;margin-top:20px;font-size:13px;color:var(--m)}
+.ft a{color:var(--p);cursor:pointer;text-decoration:underline}
+.cr{text-align:center;margin-top:28px;padding-top:16px;border-top:1px solid var(--l);font-size:13px;color:var(--m)}
+.cr p{margin:4px 0}
+.cr a{color:var(--p)}
+@media print{.nav,.st select,.ft{display:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="card top">
+    <h1>Website Discovery &amp; Requirements Questionnaire</h1>
+    <p>Answer each question as accurately as you can. If you are unsure, leave it blank or choose “Not sure yet.” Your answers are saved in this browser as you go.</p>
+    <p><span class="ast" style="margin:0">*</span> marks an optional question.</p>
+    <div class="bar"><div id="pb"></div></div>
+    <div class="st"><span id="stp"></span><select id="jump" aria-label="Jump to section"></select></div>
+  </div>
+  <form id="f" onsubmit="return false" novalidate></form>
+  <div class="nav" id="nav">
+    <button class="b g" id="bk" type="button">Back</button>
+    <button class="b" id="nx" type="button">Next</button>
+    <button class="b" id="sb" type="button" hidden>Submit</button>
+  </div>
+  <div class="ft" id="ft">Uploaded files stay in this page until you submit. <a id="clr">Clear form</a></div>
+  <footer class="cr">
+    <p>Made by <a href="https://github.com/Brendanmebson" target="_blank" rel="noopener">brendanmebson</a></p>
+    <p>Contact for your website development<br><a href="mailto:brendanmebson@gmail.com">brendanmebson@gmail.com</a></p>
+  </footer>
+</main>
+<script>
+// Optional: set a URL to also POST responses as JSON when the form is submitted.
+const ENDPOINT='https://script.google.com/macros/s/AKfycbw5fZtxrGQJhaoFm9zvNeHy8FkE0OEF-V-Vw7JQo0tellK9P3F8F4ePySN8rBio3lbg/exec';
+
+const S=[
+['Business Information','',`
+What is the full name of your business, company, organisation, or personal brand?
+What is the nature of your business?
+Briefly describe what your business does.
+When was the business established?
+Where is the business located?
+c:Does your business operate locally, nationally, internationally, or entirely online?=Locally|Nationally|Internationally|Entirely online
+What industry does your business operate in?
+What products or services do you currently offer?
+What are your main business goals?
+What makes your business different from competitors?
+What are the biggest challenges your business currently faces?
+f:Do you have an existing company profile, business plan, brochure, or other document describing your business?
+What are your business’s official contact details?
+What are your business operating hours, if applicable?`],
+['Website Purpose and Objectives','',`
+Why do you want a website?
+c:What is the primary purpose of the website?=Establish an online presence|Promote a business or brand|Generate leads and enquiries|Sell products online|Advertise services|Showcase projects or a portfolio|Publish news, articles, or educational content|Accept bookings or appointments|Provide an online platform for customers or members|Automate business processes|Other
+What are the three most important things you want the website to achieve?
+What specific problems should the website solve?
+What actions should visitors take when they visit the website?
+How will you determine whether the website is successful?
+Are there any upcoming events, campaigns, expansions, or business changes the website should support?
+r:Is the website intended to support an existing business or launch something new?=Support an existing business|Launch something new|Both|Not sure yet`],
+['Target Audience','',`
+Who are your ideal customers or website visitors?
+c:Are you targeting individuals, businesses, organisations, or a combination?=Individuals|Businesses|Organisations
+What locations or countries are your target audience based in?
+What age groups or professional groups are you targeting, if relevant?
+What problems or needs do your target customers have?
+What information will visitors most likely be looking for?
+What concerns might prevent a potential customer from using your services or buying your products?
+What languages should the website support?
+Should the website accommodate visitors with accessibility needs?`],
+['Website Type and Structure','',`
+c:What type of website do you envision?=Corporate or business website|E-commerce or online store|Personal brand or portfolio|Blog, news, or magazine|Educational or e-learning platform|Booking or appointment platform|Membership or community website|Directory or marketplace|Web application or customer portal|Nonprofit or charity website|Other
+Do you already have an idea of how the website should be structured?
+c:Which pages would you like the website to have?=Home|About Us|Our Team|Services|Individual Service Details|Products or Shop|Individual Product Details|Pricing or Packages|Portfolio or Projects|Case Studies|Testimonials or Reviews|Blog or News|Frequently Asked Questions|Contact Us|Locations|Careers or Vacancies|Events|Gallery|Booking or Appointments|Customer Login or Registration|User Dashboard|Privacy Policy|Terms and Conditions|Cookie Policy|Other
+Are there any pages that are essential for the website to function?
+Are there pages that should only be accessible to registered users or staff?
+Do you need separate pages for different services, products, locations, or departments?
+Should the website include a search function?
+Do you have any existing website content or pages that need to be migrated?
+Are there websites whose structure you would like to use as inspiration?`],
+['Design and Brand Identity','',`
+u:Do you have an existing logo?
+f:Do you have established brand colours, fonts, or brand guidelines?
+u:Can you provide your logo in a high-quality format?
+c:What design style do you prefer?=Minimalist and clean|Modern and professional|Corporate and formal|Luxury and premium|Bold and creative|Colourful and energetic|Elegant and sophisticated|Technology-focused and futuristic|Other
+Which colours should the website use?
+Which colours, styles, or visual elements should be avoided?
+r:Do you prefer a light theme, a dark theme, or both?=Light theme|Dark theme|Both|Not sure yet
+u:Do you have examples of websites you like? Please provide their links.
+What specifically do you like about those websites?
+Are there any websites whose design or user experience you dislike? Why?
+Should the website use animations, transitions, scrolling effects, or interactive elements?
+c:Do you prefer photography, illustrations, icons, videos, or a combination?=Photography|Illustrations|Icons|Videos|A combination
+u:Do you have professional photographs, videos, or other visual assets?
+r:Should the website have a distinctive visual identity or follow an existing corporate identity?=Distinctive new visual identity|Follow existing corporate identity|Not sure yet
+Do you have preferences for the navigation menu, header, footer, layout, or page structure?
+Should the website have a dark-mode or light-mode switch?
+Are there any design elements that are particularly important to you?`],
+['Content and Copywriting','',`
+Do you already have the text for the website?
+Who will provide the website content?
+Do you need assistance writing professional website copy?
+Do you need help creating a company profile, mission statement, vision statement, or brand story?
+Do you have an official mission, vision, and set of company values?
+Do you have descriptions for your products and services?
+f:Do you have testimonials, customer reviews, case studies, or success stories?
+u:Do you have team biographies, staff photographs, or management profiles?
+f:Will the website need downloadable documents, brochures, forms, catalogues, or reports?
+Do you need professional photography, image editing, graphics, or video production?
+Who will review and approve the content before publication?
+How frequently will the content need to be updated?
+Should the website support multiple languages or region-specific content?`],
+['Functional Requirements','',`
+c:Which of the following features do you need?=Contact forms|WhatsApp integration|Click-to-call functionality|Email integration|Newsletter subscriptions|Live chat|Chatbot or AI assistant|Search and filtering|User registration and login|User profiles|Password recovery|Admin dashboard|Notifications|File uploads and downloads|Social media integration|Maps and location directions|Reviews and ratings|Appointment scheduling|Online bookings|Product catalogue|Shopping cart|Online checkout|Online payments|Order tracking|Customer support portal|Blog or content management|Analytics and reporting|Other
+Please describe any additional features you want that are not listed above.
+Which features are essential for launch, and which can be added later?
+Should visitors be able to submit enquiries through forms?
+Who should receive submitted enquiries, and how should they be notified?
+Should the website send automated emails or other notifications?
+Should users be able to upload documents, images, or other files?
+Should the website support downloadable resources?
+Should different users have different permissions or access levels?
+Do you need any automated workflows to reduce manual work?
+Are there repetitive tasks you would like the website to handle automatically?
+Should the website retain a history of user activities, orders, enquiries, or transactions where applicable?`],
+['Products, Services, and E-Commerce','Complete this section if the website will display or sell products or services.',`
+c:Will the website sell physical products, digital products, services, or a combination?=Physical products|Digital products|Services
+How many products or services will initially be listed?
+What information should each listing contain?
+Will products have variations such as sizes, colours, specifications, or packages?
+Who will add and update product or service listings?
+Do you need categories, filters, sorting, and product search?
+Should customers be able to add items to a cart and save favourites?
+Should customers be able to purchase without creating an account?
+Which payment methods should be supported?
+Which payment providers would you prefer, if any?
+Which currencies should the website support?
+Should prices, taxes, discounts, or delivery fees be calculated automatically?
+Do you need discount codes, promotions, gift cards, or loyalty programmes?
+Do you need inventory or stock management?
+c:Will the website support delivery, collection, shipping, or digital delivery?=Delivery|Collection|Shipping|Digital delivery
+Which locations will you deliver to or serve?
+Do you need order confirmations, receipts, invoices, or order tracking?
+How should cancellations, refunds, returns, and exchanges be handled?
+Should customers be able to view their order history?
+Do you need integration with existing inventory, accounting, or order management systems?`],
+['Bookings, Appointments, and Scheduling','Complete this section if customers need to book appointments, services, events, or facilities.',`
+What can visitors book?
+Who manages the bookings?
+c:Should customers choose a date, time, location, service, or staff member?=Date|Time|Location|Service|Staff member
+Should availability update automatically?
+r:Are bookings confirmed automatically or approved manually?=Confirmed automatically|Approved manually|Both|Not sure yet
+Should customers receive confirmation, reminder, and cancellation notifications?
+Should customers be able to reschedule or cancel their bookings?
+Are deposits or advance payments required?
+Do you need recurring bookings, waiting lists, or calendar synchronisation?
+Should staff have separate calendars or dashboards?
+Are there specific scheduling rules, time zones, opening hours, or booking restrictions?`],
+['User Accounts and Administration','',`
+Will visitors need to create accounts?
+What types of users will access the website?
+Do you need separate roles for administrators, staff, customers, partners, or other users?
+What should each type of user be able to view or do?
+Should users be able to update their profiles or change their passwords?
+Should users have personal dashboards?
+Should administrators be able to manage users, content, orders, bookings, and enquiries?
+Should administrators be able to create, edit, publish, archive, or delete content?
+Should important administrative actions be recorded in an activity log?
+Do you need approval workflows before content or submissions are published?
+Should different departments or staff members have different permissions?
+Who will be responsible for managing the website after launch?`],
+['Third-Party Integrations','',`
+Do you currently use any business software or online platforms that the website must connect to?
+Do you need payment gateway integration?
+Do you need email marketing or newsletter integrations?
+Do you need integration with WhatsApp Business or other messaging platforms?
+Do you need integration with Google Maps or another mapping service?
+Do you need Google Analytics, Google Search Console, or similar reporting tools?
+Should the website connect to an existing CRM, ERP, accounting system, inventory system, or customer database?
+Do you need integration with Google Calendar, Microsoft Outlook, or other scheduling tools?
+Do you need social media feeds, sharing, or sign-in functionality?
+Do you need an SMS, email, or push notification provider?
+Do you have API documentation or developer access for any existing systems?
+Are there any other platforms or services the website must communicate with?`],
+['Domain, Hosting, and Deployment','',`
+Do you already own a domain name?
+If yes, what is the domain name and who manages it?
+Do you currently have website hosting?
+If yes, which hosting provider do you use?
+Do you have access to your domain registrar, hosting account, DNS settings, or existing website files?
+Do you need assistance selecting and configuring the domain and hosting?
+Do you need business email addresses using your domain?
+Should the website have separate development, testing, and production environments?
+Do you need a staging website to review changes before they go live?
+Are there existing systems or websites that must remain operational during the transition?
+Who should have ownership and administrative access to the domain, hosting, and related accounts?
+Do you have any preferred technologies, hosting providers, or technical requirements?`],
+['Security, Privacy, and Compliance','',`
+Will the website collect personal information from visitors or customers?
+What types of information will be collected?
+Will the website handle payments, confidential business information, or sensitive customer records?
+f:Do you have existing privacy policies, terms and conditions, or other legal documents?
+Are there any industry-specific regulatory or compliance requirements?
+Should users be required to accept terms, privacy notices, or consent forms?
+Will the website use cookies or analytics technologies that require visitor consent?
+Do you need different access permissions for staff and administrators?
+Do you have requirements for password policies, account verification, or multi-factor authentication?
+Do you need automatic backups and a recovery plan?
+Are there specific data retention or account deletion requirements?
+Who should be authorised to access customer data and administrative functions?
+Are there requirements for audit logs, fraud prevention, spam protection, or abuse reporting?`],
+['Search Engine Optimisation and Online Visibility','',`
+Should the website be optimised for search engines such as Google?
+Which products, services, topics, or keywords should customers be able to find you through?
+Which locations or markets should the website target in search results?
+Do you need local SEO, including business location information and a Google Business Profile?
+Do you have an existing Google Business Profile?
+Do you need page titles, meta descriptions, structured data, and social sharing previews?
+Will the website publish articles, guides, news, or other content to attract visitors?
+Do you have existing search engine rankings or website traffic that should be preserved?
+Do you need help setting up analytics and measuring traffic, enquiries, conversions, and other goals?
+Are there competitor websites you would like to be compared with in terms of online visibility?`],
+['Performance, Mobile, and Accessibility','',`
+c:Which devices are most commonly used by your target audience?=Mobile phones|Tablets|Laptops|Desktop computers
+Should the website work on mobile phones, tablets, laptops, and desktop computers?
+Are there particular browsers or older devices that must be supported?
+Is fast loading especially important for your audience or business operations?
+Will the website contain large images, videos, documents, or substantial amounts of data?
+Do you require support for screen readers, keyboard navigation, readable contrast, and accessible forms?
+Are there specific accessibility standards your organisation must follow?
+Should the website continue to provide any functionality when the internet connection is unreliable?
+Will visitors need to install the website as a Progressive Web App or receive browser notifications?
+Are there any other performance or device requirements?`],
+['Maintenance and Long-Term Management','',`
+Who will manage the website after launch?
+How frequently do you expect content or information to change?
+Do you want to update website content without editing code?
+Will you need training on how to use the admin dashboard or content management system?
+Do you need ongoing technical support?
+Who should be contacted if the website stops working?
+Should backups run automatically, and how often should they be retained?
+Do you need uptime monitoring, error reporting, or performance monitoring?
+Who will manage software updates, security patches, integrations, and domain renewals?
+Are there future features or expansions you already anticipate?
+Should the website be built to support additional users, products, locations, or business operations as the business grows?`],
+['Project Timeline and Approval','',`
+When would you ideally like the website to launch?
+Is there a specific event, campaign, or business deadline associated with the launch?
+Are there any important milestones or intermediate review dates?
+Who will be the main point of contact throughout the project?
+Who has final approval over the design, content, features, and launch?
+Who will provide the required content, images, documents, and access credentials?
+How would you prefer to review progress and provide feedback?
+How many people will be involved in reviewing or approving the website?
+Are there any business processes, dependencies, or external approvals that could affect the timeline?
+What would you consider a successful final delivery?`],
+['Final Requirements and Additional Notes','',`
+Describe your ideal website in your own words.
+What are the five most important things the website must have?
+Are there any features or design elements that must not be included?
+Are there any special requirements not covered by the previous sections?
+f:Are there any existing websites, applications, documents, or reference materials I should review?
+Is there anything about your business operations that I should understand before development begins?
+What questions or concerns do you have about the website development process?`],
+['Confirmation','Thank you for completing this questionnaire. Your responses will be used to prepare the website requirements, page structure, design direction, feature list, technical approach, and project plan before development begins.',`
+s:Name of person completing the questionnaire
+s:Business or organisation
+d:Date completed
+s:Preferred contact method
+Additional notes`]
+];
+
+// ---- parse (question numbers follow the original questionnaire order)
+let n=0,u=0;const Q={};
+const OPT=[14,26,92,139,141];
+const secs=S.map(([t,d,l],si)=>({t,d,q:l.trim().split('\n').map(x=>{
+  const m=x.match(/^([rcufsd]):/);let k=m?m[1]:'',s=m?x.slice(2):x,o=null;
+  if(s.includes('=')){[s,o]=s.split('=');o=o.split('|')}
+  if(!k){if(/^(Do|Does|Are|Is|Will|Should|Can|Have|Would)\b/.test(s)){k='r';o=['Yes','No','Not sure yet']}else k='t'}
+  const num=(k=='s'||k=='d')?0:++n,q={id:'q'+(++u),num,s,k,o,opt:si==7||si==8||k=='u'||k=='f'||OPT.includes(num)||s=='Additional notes'};Q[q.id]=q;return q})}));
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const f=$('#f');
+let A={},F={},cur=0;
+try{A=JSON.parse(localStorage.getItem('wdq')||'{}');cur=+localStorage.getItem('wdqs')||0}catch(e){}
+if(cur<0||cur>=secs.length)cur=0;
+const save=()=>{try{localStorage.setItem('wdq',JSON.stringify(A));localStorage.setItem('wdqs',cur)}catch(e){}};
+
+$('#jump').innerHTML=secs.map((s,i)=>`<option value="${i}">${i+1}. ${esc(s.t)}</option>`).join('');
+
+function card(q){
+  const a=A[q.id]||{},v=a.v,id=q.id,at=`data-id="${id}"`;
+  let h=`<div class="card"><label class="ql">${q.num?q.num+'. ':''}${esc(q.s)}${q.opt?'<span class="ast" title="Optional">*</span>':''}</label>`;
+  if(q.k=='t')h+=`<textarea ${at} data-f="v" rows="2" placeholder="Your answer">${esc(v||'')}</textarea>`;
+  else if(q.k=='s')h+=`<input type="text" ${at} data-f="v" placeholder="Your answer" value="${esc(v||'')}">`;
+  else if(q.k=='d')h+=`<input type="date" ${at} data-f="v" value="${esc(v||'')}">`;
+  else if(q.k=='r'||q.k=='c'){
+    h+=q.o.map(o=>`<label class="op"><input type="${q.k=='r'?'radio':'checkbox'}" name="${id}" ${at} data-f="o" value="${esc(o)}" ${(q.k=='r'?v==o:(v||[]).includes(o))?'checked':''}><span>${esc(o)}</span></label>`).join('')
+      +`<input type="text" class="dt" ${at} data-f="d" placeholder="Details or other (optional)" value="${esc(a.d||'')}">`;
+  }else{
+    const img=q.k=='u';
+    h+=`<label class="dz" ${at}><input type="file" hidden multiple ${at} data-f="u" ${img?'accept="image/*"':''}><b>${img?'Upload images':'Upload files'}</b><span>Click to choose, or drop ${img?'images':'files'} here (max 10 MB each)</span></label><div class="th" id="th${id}"></div>`
+      +`<input type="text" class="dt" ${at} data-f="d" placeholder="Notes or links (optional)" value="${esc(a.d||'')}">`;
+  }
+  return h+'</div>';
+}
+
+function thumbs(id){
+  const el=$('#th'+id);if(!el)return;
+  el.innerHTML=(F[id]||[]).map((x,i)=>`<div class="tb">${x.type.startsWith('image/')?`<img src="${x.data}" alt="">`:'<i>File</i>'}<span>${esc(x.name)}</span><button type="button" data-rm="${id}:${i}" aria-label="Remove ${esc(x.name)}">×</button></div>`).join('');
+}
+
+function addFiles(id,files){
+  const img=Q[id].k=='u';
+  [...files].forEach(file=>{
+    if(img&&!file.type.startsWith('image/'))return alert(file.name+' is not an image.');
+    if(file.size>10e6)return alert(file.name+' is larger than 10 MB.');
+    const r=new FileReader();
+    r.onload=()=>{(F[id]=F[id]||[]).push({name:file.name,type:file.type,data:r.result});thumbs(id)};
+    r.readAsDataURL(file);
+  });
+}
+
+function show(i){
+  cur=i;const s=secs[i];
+  f.innerHTML=`<div class="card hd"><h2>${esc(s.t)}</h2>${s.d?`<p>${esc(s.d)}</p>`:''}</div>`+s.q.map(card).join('');
+  s.q.forEach(q=>(q.k=='u'||q.k=='f')&&thumbs(q.id));
+  const last=i==secs.length-1;
+  $('#pb').style.width=((i+1)/secs.length*100)+'%';
+  $('#stp').textContent=`Section ${i+1} of ${secs.length}`;
+  $('#jump').value=i;
+  $('#bk').disabled=i==0;$('#nx').hidden=last;$('#sb').hidden=!last;
+  window.scrollTo(0,0);save();
+}
+
+f.addEventListener('input',e=>{
+  const t=e.target,id=t.dataset.id,fl=t.dataset.f;if(!fl)return;
+  A[id]=A[id]||{};
+  if(fl=='v')A[id].v=t.value;
+  else if(fl=='d')A[id].d=t.value;
+  else if(fl=='o')A[id].v=t.type=='radio'?t.value:[...f.querySelectorAll(`input[name="${id}"]:checked`)].map(x=>x.value);
+  else if(fl=='u'){addFiles(id,t.files);t.value=''}
+  save();
+});
+f.addEventListener('click',e=>{
+  const r=e.target.dataset.rm;if(!r)return;
+  const [id,i]=r.split(':');F[id].splice(+i,1);thumbs(id);
+});
+['dragover','dragleave','drop'].forEach(ev=>f.addEventListener(ev,e=>{
+  const z=e.target.closest('.dz');if(!z)return;
+  e.preventDefault();z.classList.toggle('on',ev=='dragover');
+  if(ev=='drop')addFiles(z.dataset.id,e.dataTransfer.files);
+}));
+
+$('#bk').onclick=()=>show(cur-1);
+$('#nx').onclick=()=>show(cur+1);
+$('#jump').onchange=e=>show(+e.target.value);
+$('#clr').onclick=()=>{if(confirm('Clear all answers and uploaded files?')){A={};F={};show(0)}};
+
+function build(){
+  const out=[];
+  secs.forEach(s=>s.q.forEach(q=>{const a=A[q.id]||{};
+    out.push({section:s.t,number:q.num||null,question:q.s,answer:a.v||(q.k=='c'?[]:''),details:a.d||'',files:F[q.id]||[]})}));
+  return {submittedAt:new Date().toISOString(),responses:out};
+}
+function download(data){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+  a.download='website-questionnaire-responses.json';a.click();
+}
+$('#sb').onclick=async()=>{
+  const data=build();
+  if(ENDPOINT){try{await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)})}catch(e){alert('Could not send your responses. A copy will be downloaded instead.');download(data)}}
+  else download(data);
+  try{localStorage.removeItem('wdq');localStorage.removeItem('wdqs')}catch(e){}
+  f.innerHTML=`<div class="card top"><h2>Thank you</h2><p>${ENDPOINT?'Your responses and uploaded files were sent successfully.':'Your responses were submitted and downloaded as a JSON file, including any uploaded images and files.'}</p><div class="nav"><button class="b g" id="dl" type="button">Download again</button><button class="b" id="pr" type="button">Print a copy</button></div></div>`;
+  $('#nav').hidden=$('#ft').hidden=true;
+  $('#dl').onclick=()=>download(data);$('#pr').onclick=()=>window.print();
+  window.scrollTo(0,0);
+};
+
+show(cur);
+</script>
+</body>
+</html>
